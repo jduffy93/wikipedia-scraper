@@ -2,26 +2,22 @@ from src.scraper import WikipediaScraper
 
 
 if __name__ == "__main__":
-    #print('main 1')
     wikipediascraper = WikipediaScraper()
-    #print('main 2')
-
     wikipediascraper.get_countries()
 
+    # Loop over the list of countries, to get the leaders for each country
     for country in wikipediascraper.countries_list:
         wikipediascraper.get_leaders(country=country)
-    
-    '''
-    counter_index_date = 0
-    for url in wikipediascraper.wikipedia_url_list:
+        
+    # Loop over the country elements in leaders data, and then the leader key to scrape the first paragraph from wikipedia and add it to the leaders_data dictionary
+    for country in wikipediascraper.leaders_data:
+        for leader_key in wikipediascraper.leaders_data[country]:
+            leader = wikipediascraper.leaders_data[country][leader_key]
 
-        wikipediascraper.get_first_paragraph(url, wikipediascraper.birth_date_list[counter_index_date])
-        counter_index_date += 1
-    '''
-    for i in range(len(wikipediascraper.wikipedia_url_list)):
+            wikipediascraper.get_first_paragraph(wikipedia_url=leader.get('wikipedia_url'),
+                                                 country=country,
+                                                 leader_key=leader_key)
 
-        wikipediascraper.get_first_paragraph(wikipediascraper.wikipedia_url_list[i], wikipediascraper.birth_date_list[i])
-    print(len(wikipediascraper.wikipedia_url_list))
+    # Write dictionary to a JSON file
+    wikipediascraper.to_json_file(filepath = 'leaders_data.json')
 
-
-    #print('main 3')
