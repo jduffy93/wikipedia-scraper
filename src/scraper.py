@@ -73,6 +73,7 @@ class WikipediaScraper:
                                                     'wikipedia_url': f'{leader.get('wikipedia_url')}',
                                                     'birth_date': f'{leader.get('birth_date')}',
                                                     'death_date': f'{leader.get('death_date')}',
+                                                    'place_of_birth': f'{leader.get('place_of_birth')}',
                                                     'start_mandate': f'{leader.get('start_mandate')}',
                                                     'end_mandate': f'{leader.get('end_mandate')}'
                                                       }
@@ -108,7 +109,6 @@ class WikipediaScraper:
                 
         
         print(f'Processing {self.progress_counter}/{sum(len(v) for v in self.leaders_data.values())} leaders') # Prints out a processing message, to notify user of progress
-
 
 
     def to_json_file(self, filepath: str) -> None:
